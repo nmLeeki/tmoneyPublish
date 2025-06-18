@@ -49,16 +49,60 @@
     /* form properties */
     .hide { clip: rect(0 0 0 0); width: 1px; height: 1px; position: absolute; overflow: hidden; margin: -1px; padding: 0; border: 0; }
     /*font 및 reset css ed*/
+
+    .t_info .tab-container { width: 100%;}
+    .t_info .tab-list { display: flex; border-bottom: 2px solid #ddd; }
+    .t_info .tab-list button {
+        flex: 1;
+        padding: 12px 0;
+        background: #f9f9f9;
+        border: none;
+        border-bottom: 2px solid transparent;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .t_info .tab-list button.active {
+        background: #fff;
+        border-bottom: 2px solid #007bff;
+        color: #007bff;
+        font-weight: bold;
+    }
+    .t_info .tab-content { padding: 24px 12px; background: #fff;}
+    .t_info .tab-panel { display: none; }
+    .t_info .tab-panel.active { display: block; }
 </style>
 <body>
-<div>asdasdasdasdasd맞아?</div>
+<div class="t_info">
+    <div class="tab-container">
+        <div class="tab-list">
+            <button class="active" type="button" >탭1</button>
+            <button type="button">탭2</button>
+            <button type="button">탭3</button>
+            <button type="button">탭4</button>
+        </div>
+        <div class="tab-content">
+            <div class="tab-panel active">탭1 내용입니다.</div>
+            <div class="tab-panel">탭2 내용입니다.</div>
+            <div class="tab-panel">탭3 내용입니다.</div>
+            <div class="tab-panel">탭4 내용입니다.</div>
+        </div>
+    </div>
+</div>
 
 
 
 <script>
-    $('.btn_link.type2').on('touchstart click',function(){
-        $('html,body').animate({scrollTop:$('.text-radio').offset().top},200)
-    })
+    const tabButtons = document.querySelectorAll('.t_info .tab-list button');
+    const tabPanels = document.querySelectorAll('.t_info .tab-panel');
+    tabButtons.forEach((btn, idx) => {
+        btn.addEventListener('click', () => {
+            tabButtons.forEach(b => b.classList.remove('active'));
+            tabPanels.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            tabPanels[idx].classList.add('active');
+        });
+    });
 </script>
 </body>
 </html>
